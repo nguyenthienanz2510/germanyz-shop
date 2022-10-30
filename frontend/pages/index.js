@@ -1,28 +1,37 @@
 import React from 'react'
+import MainLayout from '../components/layout/MainLayout'
 import tw from 'twin.macro'
-import { Button, Logo } from './../components'
+import { useTheme } from 'next-themes'
+import { useLoadingContext } from '../context/loading'
 
-const styles = {
-  // Move long class sets out of jsx to keep it scannable
-  container: ({ hasBackground }) => [
-    tw`flex flex-col items-center justify-center h-screen`,
-    hasBackground && tw`bg-gradient-to-b`,
-  ],
+const IndexPage = () => {
+  const [loading, setLoading] = useLoadingContext()
+
+  return (
+    <div tw="bg-color-black">
+      home page
+      <h2 tw="text-primary">text primary</h2>
+      <TextPrimary>TEST PRIMARY</TextPrimary>
+      <button
+        onClick={() => {
+          setLoading(true)
+          setTimeout(() => {
+            setLoading(false)
+          }, 2000)
+        }}
+        tw="px-4 py-2 text-white bg-black rounded dark:bg-white dark:text-black"
+      >
+        loading nao
+      </button>
+      <p>test color theme</p>
+    </div>
+  )
 }
 
-const BTN = tw.button`
-`
-
-const IndexPage = () => (
-  <div css={styles.container({ hasBackground: true })}>
-    <div tw="flex flex-col justify-center h-full gap-y-5">
-      <Button variant="primary">Submit</Button>
-      <Button variant="secondary">Cancel</Button>
-      <Button isSmall>Close</Button>
-    </div>
-    <button tw='px-5 py-2 text-primary'>hihi</button>
-    <Logo />
-  </div>
-)
+IndexPage.getLayout = function getLayout(page) {
+  return <MainLayout>{page}</MainLayout>
+}
 
 export default IndexPage
+
+const TextPrimary = tw.h2`text-primary`
