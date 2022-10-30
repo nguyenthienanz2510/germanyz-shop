@@ -8,7 +8,7 @@ const IndexPage = () => {
   const [loading, setLoading] = useLoadingContext()
 
   return (
-    <div tw="bg-color-black">
+    <div tw="">
       home page
       <h2 tw="text-primary">text primary</h2>
       <TextPrimary>TEST PRIMARY</TextPrimary>
@@ -19,7 +19,7 @@ const IndexPage = () => {
             setLoading(false)
           }, 2000)
         }}
-        tw="px-4 py-2 text-white bg-black rounded dark:bg-white dark:text-black"
+        tw="px-4 py-2 text-white rounded dark:bg-white dark:text-black"
       >
         loading nao
       </button>

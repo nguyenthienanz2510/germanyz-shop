@@ -14,6 +14,7 @@ module.exports = {
         'color-white': '#ffffff',
         'color-black': '#000000',
         'text-link': '#cfb160',
+        'bg-gray-color': 'rgba(33,33,33,.6)'
       },
     },
   },
