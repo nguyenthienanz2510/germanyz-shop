@@ -6,7 +6,7 @@ import { useLoadingContext } from "../../context/loading";
 export default function SpinnerComponent() {
   const [loading, setLoading] = useLoadingContext();
 
-  console.log("[LOADING ==>]", loading)
+  // console.log("[LOADING ==>]", loading)
 
   return loading && (
     <LoadingStyle>

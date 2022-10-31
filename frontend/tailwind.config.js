@@ -10,11 +10,15 @@ module.exports = {
     extend: {
       colors: {
         primary: '#cfb160',
-        secondary: 'blue',
         'color-white': '#ffffff',
         'color-black': '#000000',
+        'color-danger': '#ff5758',
+        'color-success': '#3be58a',
+        'color-bg-btn-primary': 'linear-gradient(to right bottom,#d9b432,#e8cd62)',
+        'color-bg-btn-primary-hover': 'linear-gradient(to left top,#d9b432,#e8cd62)',
+        'text-primary': '#333333',
         'text-link': '#cfb160',
-        'bg-gray-color': 'rgba(33,33,33,.6)'
+        'color-gray-rgba-06': 'rgba(33,33,33,.6)'
       },
     },
   },

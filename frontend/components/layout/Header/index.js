@@ -16,7 +16,7 @@ const Header = () => {
 export default Header;
 
 const HeaderStyle = tw.header`
-    bg-white dark:bg-bg-gray-color shadow-sm
+    bg-white dark:bg-color-gray-rgba-06 shadow-sm
 `
 const MainLogoLinkStyle = tw.button`
     text-lg font-bold text-primary

@@ -11,5 +11,5 @@ const Footer = () => {
 export default Footer;
 
 const FooterContainerStyle = tw.footer`
-    h-16 bg-white dark:bg-bg-gray-color flex justify-center items-center text-primary shadow-inner
+    h-16 bg-white dark:bg-color-gray-rgba-06 flex justify-center items-center shadow-inner
 `
