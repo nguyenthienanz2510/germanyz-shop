@@ -1,30 +1,38 @@
-import React from 'react'
-import MainLayout from '../components/layout/MainLayout'
+import React, { useEffect, useState } from 'react'
 import tw from 'twin.macro'
-import { useTheme } from 'next-themes'
+import MainLayout from '../components/layout/MainLayout'
+import ProductCard from '../components/product/ProductCard'
 import { useLoadingContext } from '../context/loading'
+import { productService } from '../services/productService'
 
 const IndexPage = () => {
   const [loading, setLoading] = useLoadingContext()
+  const [products, setProducts] = useState()
+
+  useEffect(() => {
+    setLoading(true)
+    productService
+      .getProducts()
+      .then(res => {
+        console.log(res.data)
+        setProducts(res.data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.log(err)
+        setLoading(false)
+      })
+  }, [])
 
   return (
-    <div tw="">
-      home page
-      <h2 tw="text-primary">text primary</h2>
-      <TextPrimary>TEST PRIMARY</TextPrimary>
-      <button
-        onClick={() => {
-          setLoading(true)
-          setTimeout(() => {
-            setLoading(false)
-          }, 2000)
-        }}
-        tw="px-4 py-2 text-white rounded dark:bg-white dark:text-black"
-      >
-        loading nao
-      </button>
-      <p>test color theme</p>
-    </div>
+    <>
+      <ProductsContainer>
+        {products &&
+          products.map((product, index) => {
+            return <ProductCard product={product} key={index} />
+          })}
+      </ProductsContainer>
+    </>
   )
 }
 
@@ -34,4 +42,6 @@ IndexPage.getLayout = function getLayout(page) {
 
 export default IndexPage
 
-const TextPrimary = tw.h2`text-primary`
+const ProductsContainer = tw.div`
+  grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4
+`
