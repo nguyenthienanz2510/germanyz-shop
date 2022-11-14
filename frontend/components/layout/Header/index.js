@@ -1,19 +1,34 @@
-import Link from "next/link";
-import tw from "twin.macro";
-import ButtonChangeTheme from "./ButtonChangeTheme";
+import Link from 'next/link'
+import { useContext } from 'react'
+import tw from 'twin.macro'
+import { Store } from '../../../utils/store'
+import ButtonChangeTheme from './ButtonChangeTheme'
 
 const Header = () => {
-    return (
-        <HeaderStyle>
-            <NavigationStyle>
-            <Link href='/'><MainLogoLinkStyle>Germanyz</MainLogoLinkStyle></Link>
-            <ButtonChangeTheme/>
-            </NavigationStyle>
-        </HeaderStyle>
-    );
+  const { state, dispatch } = useContext(Store)
+  const { cart } = state
+  return (
+    <HeaderStyle>
+      <NavigationStyle>
+        <Link href="/">
+          <MainLogoLinkStyle>Germanyz</MainLogoLinkStyle>
+        </Link>
+        <div>
+          <a href="">
+            Cart
+            {cart.cartItems.length > 0 && (
+              <span>{cart.cartItems.reduce((a, c) => a + c.quantity, 0)}</span>
+            )}
+          </a>
+
+          <ButtonChangeTheme />
+        </div>
+      </NavigationStyle>
+    </HeaderStyle>
+  )
 }
 
-export default Header;
+export default Header
 
 const HeaderStyle = tw.header`
     bg-white dark:bg-color-gray-rgba-06 shadow-sm
@@ -23,4 +38,4 @@ const MainLogoLinkStyle = tw.button`
 `
 const NavigationStyle = tw.nav`
     flex justify-between items-center px-5 shadow-md h-16 
-` 
+`

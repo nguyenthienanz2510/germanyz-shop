@@ -24,5 +24,5 @@ const MainLayoutContainerStyle = tw.div`
   flex min-h-screen flex-col justify-between
 `
 const MainContainerStyle = tw.div`
-  flex-1 container mx-auto mt-5
+  flex-1 container mx-auto my-16
 `
