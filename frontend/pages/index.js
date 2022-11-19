@@ -14,7 +14,6 @@ const IndexPage = () => {
     productService
       .getProducts()
       .then(res => {
-        console.log(res.data)
         setProducts(res.data)
         setLoading(false)
       })

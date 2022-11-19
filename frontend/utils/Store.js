@@ -23,6 +23,13 @@ function reducer(state, action) {
       console.log(cartItems)
       return { ...state, cart: { ...state.cart, cartItems } }
     }
+    case 'CART_REMOVE_ITEM': {
+      const cartItems = state.cart.cartItems.filter((item) => { 
+        return item.slug !== action.payload.slug
+       })
+       console.log("store", cartItems)
+       return { ...state, cart: { ...state.cart, cartItems } }
+    }
     default:
       return state
   }

@@ -6,8 +6,25 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
+import { Store } from '../../utils/store';
 
 export default function ProductCard({product}) {
+
+  const { state, dispatch } = React.useContext(Store)
+
+  const addToCartHandler = () => {
+    const existItem = state.cart.cartItems.find((item) => { return item.slug === product.slug })
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+
+    if (product.countInStock < quantity) {
+      alert('Ooops, this product is out of stock')
+    }
+
+    dispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity },
+    })
+  }
   return (
     <Card>
       <Link href={`/product/${product.slug}`}>
@@ -29,7 +46,7 @@ export default function ProductCard({product}) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Add to card</Button>
+        <Button size="small" onClick={addToCartHandler}>Add to card</Button>
       </CardActions>
     </Card>
   );

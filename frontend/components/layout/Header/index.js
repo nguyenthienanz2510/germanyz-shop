@@ -7,6 +7,7 @@ import ButtonChangeTheme from './ButtonChangeTheme'
 const Header = () => {
   const { state, dispatch } = useContext(Store)
   const { cart } = state
+  console.log("CART:", cart.cartItems.length)
   return (
     <HeaderStyle>
       <NavigationStyle>
@@ -14,12 +15,12 @@ const Header = () => {
           <MainLogoLinkStyle>Germanyz</MainLogoLinkStyle>
         </Link>
         <div>
-          <a href="">
+          <Link href="/cart">
             Cart
             {cart.cartItems.length > 0 && (
               <span>{cart.cartItems.reduce((a, c) => a + c.quantity, 0)}</span>
             )}
-          </a>
+          </Link>
 
           <ButtonChangeTheme />
         </div>
