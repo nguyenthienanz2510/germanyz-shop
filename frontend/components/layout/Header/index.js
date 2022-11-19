@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { Store } from '../../../utils/store'
 import ButtonChangeTheme from './ButtonChangeTheme'
@@ -7,6 +7,13 @@ import ButtonChangeTheme from './ButtonChangeTheme'
 const Header = () => {
   const { state, dispatch } = useContext(Store)
   const { cart } = state
+  const [cartItemsCount, setcartItemsCount] = useState(0)
+  useEffect(() => {
+    setcartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0))
+    console.log("COUNT: ", cart.cartItems.reduce((a, c) => a + c.quantity, 0))
+  }, [cart.cartItems])
+
+  
   console.log("CART:", cart.cartItems.length)
   return (
     <HeaderStyle>
@@ -17,8 +24,8 @@ const Header = () => {
         <div>
           <Link href="/cart">
             Cart
-            {cart.cartItems.length > 0 && (
-              <span>{cart.cartItems.reduce((a, c) => a + c.quantity, 0)}</span>
+            {cartItemsCount > 0 && (
+              <span>{cartItemsCount}</span>
             )}
           </Link>
 

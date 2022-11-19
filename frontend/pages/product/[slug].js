@@ -60,5 +60,5 @@ export default function ProductDetail() {
 }
 
 ProductDetail.getLayout = function getLayout(page) {
-  return <MainLayout>{page}</MainLayout>
+  return <MainLayout title='Product'>{page}</MainLayout>
 }

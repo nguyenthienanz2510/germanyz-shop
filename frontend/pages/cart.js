@@ -5,8 +5,9 @@ import MainLayout from '../components/layout/MainLayout'
 import { useRouter } from 'next/router'
 import { Store } from '../utils/store'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import dynamic from 'next/dynamic'
 
-export default function CartPage() {
+function CartPage() {
   const { state, dispatch } = useContext(Store)
   const router = useRouter()
   const {
@@ -17,10 +18,16 @@ export default function CartPage() {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item })
   }
   const checkoutCartHandler = () => {
-    router.push("/checkout")
+    router.push('/checkout')
+  }
+  const updateCartHandler = (item, qty) => {
+    const quantity = Number(qty)
+    console.log(quantity)
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } })
+    console.log({ ...item, quantity })
   }
   return (
-    <>
+    <MainLayout title="Cart">
       <h2>My Cart</h2>
       <div>
         {!!cartItems && cartItems.length === 0 ? (
@@ -50,7 +57,22 @@ export default function CartPage() {
                         <td>{++index}</td>
                         <td>{item.name}</td>
                         <td>{item.price}</td>
-                        <td>{item.quantity}</td>
+                        <td>
+                          <select
+                            value={item.quantity}
+                            onChange={e => {
+                              updateCartHandler(item, e.target.value)
+                            }}
+                          >
+                            {[...Array(item.countInStock).keys()].map(count => {
+                              return (
+                                <option key={count + 1} value={count + 1}>
+                                  {count + 1}
+                                </option>
+                              )
+                            })}
+                          </select>
+                        </td>
                         <td>
                           <button
                             onClick={() => {
@@ -66,7 +88,7 @@ export default function CartPage() {
                 </tbody>
               </table>
             </div>
-            <div tw='col-span-1'>
+            <div tw="col-span-1">
               <p>
                 Total (
                 {cartItems.reduce((total, item) => {
@@ -77,18 +99,22 @@ export default function CartPage() {
                   return total + item.quantity * item.price
                 }, 0)}
               </p>
-              <button onClick={checkoutCartHandler} tw='w-full'>Checkout</button>
+              <button onClick={checkoutCartHandler} tw="w-full">
+                Checkout
+              </button>
             </div>
           </div>
         )}
       </div>
-    </>
+    </MainLayout>
   )
 }
 
-CartPage.getLayout = function getLayout(page) {
-  return <MainLayout title="Cart">{page}</MainLayout>
-}
+export default dynamic(() => Promise.resolve(CartPage), { ssr: false })
+
+// CartPage.getLayout = function getLayout(page) {
+//   return <MainLayout title="Cart">{page}</MainLayout>
+// }
 
 // {
 //   "name": "Modern Plastic Keyboard",
